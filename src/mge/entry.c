@@ -3,6 +3,7 @@
 #include <mge/log.h>
 
 #include <mge/resource/manager.h>
+#include <mge/scene/manager.h>
 
 #include <mgl/entry.h>
 #include <mgl/memory/allocator.h>
@@ -30,7 +31,7 @@ int main(int argc, char** argv)
 		locator.resource_manager = mge_init_resource_manager(mgl_standard_allocator, config.max_resource_count);
 
 		// Init scene manager
-		locator.scene_manager = NULL;
+		locator.scene_manager = mge_init_scene_manager(mgl_standard_allocator, config.max_scene_node_count);
 
 		MGE_LOG_VERBOSE_1(MGE_LOG_ENGINE, u8"Initialized engine successfully\n");
 	}
@@ -40,7 +41,7 @@ int main(int argc, char** argv)
 	MGE_LOG_VERBOSE_1(MGE_LOG_GAME_CLIENT, u8"Loaded game successfully\n");
 
 	// Run engine
-	 
+	// TO DO
 
 	// Unload game
 	mge_game_unload(&locator);
@@ -49,7 +50,7 @@ int main(int argc, char** argv)
 	// Terminate engine
 	{
 		// Terminate scene manager
-
+		mge_terminate_scene_manager(locator.scene_manager);
 
 		// Terminate resource manager
 		mge_terminate_resource_manager(locator.resource_manager);
