@@ -1,0 +1,100 @@
+# Shader
+
+Shaders are used to program the visual properties of a renderable object.
+
+Each shader has the following properties:
+
+- Type.
+- Vertex format.
+- Source code.
+- List of parameters.
+- Default parameter values.
+- Blend state.
+- Use transparency?
+- Use depth testing?
+
+## Type
+
+### Mesh
+
+Used to render skeleton meshes, normal meshes, canvas elements, etc.
+
+### Particle
+
+Used to render particles in particle systems.
+
+These shaders take as input, in addition to the vertexes, a vector 4 containing the particle position (.xyz) and the particle age (.w).
+
+They also take an optional uniform integer which specifies the current particle animation frame.
+
+## Vertex Format
+
+The following vertex formats are supported:
+
+- `3 Position;`
+- `3 Position; 3 Normal;`
+- `3 Position; 2 UVs;`
+- `3 Position; 3 Normal; 2 UVs;`
+- `3 Position; 4 Color;`
+- `3 Position; 3 Normal; 4 Color;`
+- `3 Position; 4 Bone Indices; 4 Bone Weights;`
+- `3 Position; 4 Bone Indices + Weights;`
+- `3 Position; 3 Normal; 4 Bone Indices; 4 Bone Weights;`
+- `3 Position; 3 Normal; 4 Bone Indices + Weights;`
+- `3 Position; 2 UVs; 4 Bone Indices; 4 Bone Weights;`
+- `3 Position; 2 UVs; 4 Bone Indices + Weights;`
+- `3 Position; 3 Normal; 2 UVs; 4 Bone Indices; 4 Bone Weights;`
+- `3 Position; 3 Normal; 2 UVs; 4 Bone Indices + Weights;`
+- `3 Position; 4 Color; 4 Bone Indices; 4 Bone Weights;`
+- `3 Position; 4 Color; 4 Bone Indices + Weights;`
+- `3 Position; 3 Normal; 4 Color; 4 Bone Indices; 4 Bone Weights;`
+- `3 Position; 3 Normal; 4 Color; 4 Bone Indices + Weights;`
+
+## Example Shader
+
+```
+version 1.0
+
+type = mesh
+vertex format = 3p2u
+
+ogl330
+{
+    vertex
+    {
+    	#version 330 core
+    	
+    	layout (location = 0) in vec3 vert_position;
+    	layout (location = 1) in vec2 vert_uvs;
+    	
+    	out vec3 frag_position;
+    	out vec2 frag_uvs;
+    
+    	(...)
+    
+        void main()
+        {
+            (...)
+        }
+    }
+    
+    pixel
+    {
+        (...)
+    }
+}
+
+directx11
+{
+    vertex
+    {
+         (...)
+    }
+    
+    pixel
+    {
+         (...)
+    }
+}
+```
+
