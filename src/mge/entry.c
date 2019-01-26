@@ -2,10 +2,15 @@
 #include <mge/config.h>
 #include <mge/log.h>
 
+#include <mge/resource/manager.h>
+
 #include <mgl/entry.h>
+#include <mgl/memory/allocator.h>
 
 int main(int argc, char** argv)
 {
+	mge_game_locator_t locator;
+	
 	mge_internal_init_log();
 
 	// Init MGL
@@ -20,13 +25,16 @@ int main(int argc, char** argv)
 	MGE_LOG_VERBOSE_1(MGE_LOG_ENGINE, u8"Loaded engine configuration successfully\n");
 
 	// Init engine
-	MGE_LOG_VERBOSE_1(MGE_LOG_ENGINE, u8"Initialized engine successfully\n");
+	{
+		// Init resource manager
+		locator.resource_manager = mge_init_resource_manager(mgl_standard_allocator, config.max_resource_count);
 
-	// Fill game locator
-	mge_game_locator_t locator;
-	locator.resource_manager = NULL;
-	locator.scene_manager = NULL;
+		// Init scene manager
+		locator.scene_manager = NULL;
 
+		MGE_LOG_VERBOSE_1(MGE_LOG_ENGINE, u8"Initialized engine successfully\n");
+	}
+	
 	// Load game
 	mge_game_load(&locator);
 	MGE_LOG_VERBOSE_1(MGE_LOG_GAME_CLIENT, u8"Loaded game successfully\n");
@@ -39,7 +47,15 @@ int main(int argc, char** argv)
 	MGE_LOG_VERBOSE_1(MGE_LOG_GAME_CLIENT, u8"Unloaded game successfully\n");
 
 	// Terminate engine
-	MGE_LOG_VERBOSE_1(MGE_LOG_ENGINE, u8"Terminated engine successfully\n");
+	{
+		// Terminate scene manager
+
+
+		// Terminate resource manager
+		mge_terminate_resource_manager(locator.resource_manager);
+
+		MGE_LOG_VERBOSE_1(MGE_LOG_ENGINE, u8"Terminated engine successfully\n");
+	}
 
 	// Terminate MGL
 	mgl_terminate();

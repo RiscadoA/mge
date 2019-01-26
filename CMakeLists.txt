@@ -11,12 +11,16 @@ set(MGE_SOURCE
 	"src/mge/entry.c"
 	"src/mge/config.c"
 	"src/mge/log.c"
+	"src/mge/resource/manager.c"
+	"src/mge/resource/text.c"
 )
 
 set(MGE_INCLUDE
 	"include/mge/game.h"
 	"include/mge/config.h"
 	"include/mge/log.h"
+	"include/mge/resource/manager.h"
+	"include/mge/resource/text.h"
 )
 
 #####################################################
@@ -71,7 +75,7 @@ target_compile_definitions(mge
 		MGE_VERSION_MINOR=${PROJECT_VERSION_MINOR}
 		MGE_VERSION_PATCH=${PROJECT_VERSION_PATCH}
 		MGE_VERBOSE_LEVEL=${MGE_VERBOSE_LEVEL}
-		MGE_EXAMPLES_DATA_DIRECTORY="${CMAKE_CURRENT_SOURCE_DIR}/examples_data"
+		MGE_EXAMPLES_DATA_DIRECTORY="${CMAKE_CURRENT_SOURCE_DIR}/example-data"
 	PRIVATE
 		MGE_API_EXPORT
 )
