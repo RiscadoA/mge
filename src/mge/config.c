@@ -93,6 +93,15 @@ void mge_load_config(int argc, char ** argv, mge_engine_config_t * config)
 				i += 1;
 				continue;
 			}
+			else if (mgl_str_equal(option, u8"max-scene-node-count"))
+			{
+				config->max_scene_node_count = mge_config_parse_u64(option, argv[i + 1]);
+				MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, u8"The option max-scene-node-count was set to '");
+				MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, argv[i + 1]);
+				MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, u8"'\n");
+				i += 1;
+				continue;
+			}
 		}
 	}
 }

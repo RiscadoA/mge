@@ -13,6 +13,8 @@ set(MGE_SOURCE
 	"src/mge/log.c"
 	"src/mge/resource/manager.c"
 	"src/mge/resource/text.c"
+	"src/mge/scene/manager.c"
+	"src/mge/scene/node.c"
 )
 
 set(MGE_INCLUDE
@@ -21,6 +23,9 @@ set(MGE_INCLUDE
 	"include/mge/log.h"
 	"include/mge/resource/manager.h"
 	"include/mge/resource/text.h"
+	"include/mge/scene/manager.h"
+	"include/mge/scene/node.h"
+	"include/mge/scene/component.h"
 )
 
 #####################################################
