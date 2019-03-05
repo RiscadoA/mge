@@ -2,6 +2,7 @@
 #include <mge/log.h>
 
 #include <mge/resource/text.h>
+#include <mge/resource/shader.h>
 
 #include <mgl/file/archive.h>
 #include <mgl/string/manipulation.h>
@@ -28,6 +29,10 @@ static void mge_force_resource_load(mge_resource_t* rsc)
 			mge_resource_load_text(rsc->manager->allocator, rsc);
 			break;
 
+		case MGE_RESOURCE_SHADER:
+			mge_resource_load_shader(rsc->manager->allocator, rsc);
+			break;
+
 		default:
 			MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, u8"Couldn't load resource '");
 			MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, rsc->name);
@@ -52,6 +57,10 @@ static void mge_force_resource_unload(mge_resource_t* rsc)
 
 		case MGE_RESOURCE_TEXT:
 			mge_resource_unload_text(rsc);
+			break;
+
+		case MGE_RESOURCE_SHADER:
+			mge_resource_unload_shader(rsc);
 			break;
 
 		default:

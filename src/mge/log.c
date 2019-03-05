@@ -60,3 +60,18 @@ void mge_fatal_mgl_error(mgl_enum_t log, const mgl_chr8_t * msg, mgl_error_t err
 	mge_internal_terminate_log();
 	mgl_abort();
 }
+
+void mge_fatal_mrl_error(mgl_enum_t log, const mgl_chr8_t * msg, mrl_error_t err)
+{
+	MGL_DEBUG_ASSERT(msg != NULL);
+
+	mge_log(log, u8"FATAL MRL ERROR: ");
+	mge_log(log, msg);
+	mge_log(log, u8" (");
+	mge_log(log, mrl_get_error_string(err));
+	mge_log(log, u8")");
+	mge_log(log, u8"\n");
+
+	mge_internal_terminate_log();
+	mgl_abort();
+}

@@ -13,8 +13,11 @@ set(MGE_SOURCE
 	"src/mge/log.c"
 	"src/mge/resource/manager.c"
 	"src/mge/resource/text.c"
+	"src/mge/resource/shader.c"
 	"src/mge/scene/manager.c"
 	"src/mge/scene/node.c"
+	"src/mge/graphics/manager.c"
+	"src/mge/graphics/mesh_renderable.c"
 )
 
 set(MGE_INCLUDE
@@ -23,9 +26,13 @@ set(MGE_INCLUDE
 	"include/mge/log.h"
 	"include/mge/resource/manager.h"
 	"include/mge/resource/text.h"
+	"include/mge/resource/shader.h"
 	"include/mge/scene/manager.h"
 	"include/mge/scene/node.h"
 	"include/mge/scene/component.h"
+	"include/mge/graphics/manager.h"
+	"include/mge/graphics/material.h"
+	"include/mge/graphics/mesh_renderable.h"
 )
 
 #####################################################
@@ -43,15 +50,9 @@ add_library(MGE::mge ALIAS mge)
 find_package(MGL REQUIRED)
 target_link_libraries(mge PUBLIC MGL::MGL)
 
-# Link GLEW and OpenGL
-option(MGE_BUILD_OGL330 ON)
-if(MGE_BUILD_OGL330)
-	find_package(OpenGL REQUIRED)
-	target_link_libraries(mge PRIVATE OpenGL::GL)
-	find_package(GLEW REQUIRED)
-	target_link_libraries(mge PUBLIC GLEW::GLEW)
-	target_compile_definitions(mge PUBLIC MGE_BUILD_OGL330)
-endif()
+# Link MRL
+find_package(MRL REQUIRED)
+target_link_libraries(mge PUBLIC MRL::MRL)
 
 generate_export_header(mge)
 target_include_directories(mge

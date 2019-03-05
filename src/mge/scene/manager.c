@@ -5,6 +5,8 @@
 
 #include <mgl/string/manipulation.h>
 
+#include <mgl/memory/allocator.h>
+
 mge_scene_manager_t * mge_init_scene_manager(void * allocator, mgl_u64_t max_node_count)
 {
 	MGL_DEBUG_ASSERT(allocator != NULL && max_node_count > 0);

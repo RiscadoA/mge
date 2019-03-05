@@ -30,6 +30,33 @@ static mgl_bool_t mge_config_parse_boolean(char* option_name, char* value)
 	return MGL_FALSE;
 }
 
+static mgl_u32_t mge_config_parse_u32(char* option_name, char* value)
+{
+	if (value == NULL)
+	{
+		MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, u8"WARNING: Failed to parse option U32 value on option '");
+		MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, option_name);
+		MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, u8"', option is missing\n");
+		return MGL_FALSE;
+	}
+
+	mgl_u32_t ret;
+	mgl_error_t err = mgl_u32_from_str(value, mgl_str_size(value), &ret, 10, NULL);
+	if (err != MGL_ERROR_NONE)
+	{
+		MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, u8"WARNING: Failed to parse option U32 value '");
+		MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, value);
+		MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, u8"', on option '");
+		MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, option_name);
+		MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, u8"' (");
+		MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, mgl_get_error_string(err));
+		MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, ")\n");
+		return 1;
+	}
+
+	return ret;
+}
+
 static mgl_u64_t mge_config_parse_u64(char* option_name, char* value)
 {
 	if (value == NULL)
@@ -99,6 +126,34 @@ void mge_load_config(int argc, char ** argv, mge_engine_config_t * config)
 				MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, u8"The option max-scene-node-count was set to '");
 				MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, argv[i + 1]);
 				MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, u8"'\n");
+				i += 1;
+				continue;
+			}
+			else if (mgl_str_equal(option, u8"window-width"))
+			{
+				config->window_width = mge_config_parse_u32(option, argv[i + 1]);
+				MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, u8"The option window-width was set to '");
+				MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, argv[i + 1]);
+				MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, u8"'\n");
+				i += 1;
+				continue;
+			}
+			else if (mgl_str_equal(option, u8"window-height"))
+			{
+				config->window_height = mge_config_parse_u32(option, argv[i + 1]);
+				MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, u8"The option window-height was set to '");
+				MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, argv[i + 1]);
+				MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, u8"'\n");
+				i += 1;
+				continue;
+			}
+			else if (mgl_str_equal(option, u8"window-fullscreen"))
+			{
+				config->window_fullscreen = mge_config_parse_boolean(option, argv[i + 1]);
+				if (config->window_fullscreen)
+					MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, u8"The option window-fullscreen was activated\n");
+				else
+					MGE_LOG_VERBOSE_0(MGE_LOG_ENGINE, u8"The option window-fullscreen was deactivated\n");
 				i += 1;
 				continue;
 			}

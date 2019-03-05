@@ -5,6 +5,7 @@ extern "C" {
 #endif
 
 #include <mgl/error.h>
+#include <mrl/error.h>
 
 enum
 {
@@ -22,6 +23,8 @@ void mge_log(mgl_enum_t log, const mgl_chr8_t* msg);
 void mge_fatal_error(mgl_enum_t log, const mgl_chr8_t* msg);
 
 void mge_fatal_mgl_error(mgl_enum_t log, const mgl_chr8_t* msg, mgl_error_t err);
+
+void mge_fatal_mrl_error(mgl_enum_t log, const mgl_chr8_t* msg, mrl_error_t err);
 
 #define MGE_LOG_VERBOSE_0(log, msg) do { mge_log(log, msg); } while (0)
 	

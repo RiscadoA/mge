@@ -22,9 +22,9 @@ extern "C" {
 	/// <summary>
 	///		Initializes a scene manager
 	/// </summary>
-	/// <param name="allocator"></param>
-	/// <param name="max_node_count"></param>
-	/// <returns></returns>
+	/// <param name="allocator">Allocator used</param>
+	/// <param name="max_node_count">Maximum scene node count</param>
+	/// <returns>Pointer to manager</returns>
 	mge_scene_manager_t* mge_init_scene_manager(void* allocator, mgl_u64_t max_node_count);
 
 	/// <summary>

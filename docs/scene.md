@@ -17,15 +17,15 @@ A component is used to gives action to a scene node.
 
 There are the following types of components:
 
-- Static Mesh - Renders a static mesh.
-- Skeleton Mesh - Renders a skeleton mesh.
-- Particle System - Renders a particle system.
+- Mesh Renderable - Renders a static mesh.
+- Skeleton Mesh Renderable  - Renders a skeleton mesh.
+- Particle System Renderable  - Renders a particle system.
 - Skeleton Animator - Animates a set of scene nodes as if it was a skeleton (IK, animation playing, etc).
 - Canvas - Acts as a 2D renderable surface (children scene node components are rendered into this canvas).
 - Canvas Element - Every canvas child element must have this component.
 - Behaviour - Where game-specific logic is implemented.
-- 2D Image - Renders an image into a canvas.
-- 2D Text - Renders text into a canvas.
+- 2D Image Renderable - Renders an image into a canvas.
+- 2D Text Renderable - Renders text into a canvas.
 - Box Collider.
 - Sphere Collider.
 - Capsule Collider.
